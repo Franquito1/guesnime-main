@@ -1,6 +1,6 @@
 # guesnime
 
-A new Flutter project.
+Juego en flutter de adivinanzas con imágenes
 
 ## Getting Started
 
