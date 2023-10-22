@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guesnime/LevelsPage.dart';
 import 'package:guesnime/RegisterPage.dart';
 import 'package:guesnime/routes.dart';
 
@@ -19,7 +20,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routes: Routes.routes,
-    );
+      home: LevelsPage(levelImage: 'default_image.png')    );
   }
 }
