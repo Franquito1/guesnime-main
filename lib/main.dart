@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guesnime/LoginPage.dart';
+import 'package:guesnime/RegisterPage.dart';
+import 'package:guesnime/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Guesnime',
       theme: ThemeData(
+        backgroundColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(), // <-- Changed here
+      routes: Routes.routes,
     );
   }
 }

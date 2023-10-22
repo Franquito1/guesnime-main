@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:guesnime/LoginPage.dart';
+import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/Usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  State<LoginPage> createState() => _LoginPageState();
+    _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  String _usuario = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsuarios();
+  }
+
+void _getUsuarios() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String usuario = prefs.getString('usuario') ?? '';
+  setState(() {
+    _usuario = usuario;
+  });
+
+  // Aquí es donde imprimirás la lista de usuarios registrados en la base de datos
+  List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
+  print('Lista de usuarios registrados:');
+  for (var usuario in usuarios) {
+    print('Nombre: ${usuario.nombre}, Estrellas: ${usuario.Estrellas}');
+  }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
           color: Color(0xFF394065),
@@ -27,55 +50,21 @@ class _LoginPageState extends State<LoginPage> {
                 height: 350,
                 width: 296,
               ),
-              SizedBox(height: 20), // Espacio entre el logo y los campos
-              Container(
-                width: 280, // Ajusta el ancho de los campos
-                height: 45,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextFormField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: 'Nombre de usuario',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
-              Container(
-                width: 280, //
-                height: 45,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Contraseña',
-                    border: InputBorder.none,
-                  ),
-                  obscureText: true,
-                ),
-              ),
-              SizedBox(height: 20), // Espacio entre los campos y el botón
-              ElevatedButton(
-                onPressed: () {
-                  // Código para iniciar sesión
-                },
-                child: Text('Iniciar sesión'),
-              ),
-              SizedBox(height: 10), // Espacio entre el botón de inicio de sesión y el botón de registro
+              SizedBox(height: 10),
               Text(
-                '¿No tienes una cuenta? Regístrate aquí',
+                'Bienvenido $_usuario!',
                 style: TextStyle(
                   color: Colors.white,
-                  decoration: TextDecoration.underline,
+                  fontSize: 24,
+                  
                 ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                 Navigator.pushReplacementNamed(context, '/home');
+                },
+                child: Text('Jugar'),
               ),
             ],
           ),
