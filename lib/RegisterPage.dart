@@ -10,7 +10,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -70,25 +69,29 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20), // Espacio entre los campos y el botón
               ElevatedButton(
                 onPressed: () async {
-                  // Insertar el nuevo usuario en la base de datos
+                  // Crear un nuevo usuario
                   Usuario usuario = Usuario(
                     nombre: _usernameController.text,
-                    Estrellas: 0,
+                    estrellas: 0,
+                    nivelesExitososNaruto: 0,
+                    nivelesTotalesNaruto: 5,
+                    nivelesExitososKimetsu: 0,
+                    nivelesTotalesKimetsu: 5,
                   );
                   await BaseDeDatos.insertarUsuario(usuario);
 
-                  // Guardar el nombre de usuario en SharedPreferences
+                  // Obtener la lista de usuarios de la base de datos
+                  List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
+
+                    // Guardar el nombre de usuario en SharedPreferences
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setString('usuario', usuario.nombre);
-
+                  
                   // Imprimir un mensaje de depuración en la consola
                   print('Usuario insertado en la base de datos: $usuario');
 
                   // Guardar la bandera de usuario registrado en SharedPreferences
                   await prefs.setBool('userRegistered', true);
-
-                  // Obtener la lista de usuarios de la base de datos
-                  List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
 
                   // Redirigir al usuario a la pantalla de inicio
                   Navigator.pushReplacementNamed(context, '/login');

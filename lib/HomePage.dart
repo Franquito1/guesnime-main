@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/Usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,8 +9,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _usuario = 'Nombre de Usuario'; // Debes obtener el nombre de usuario desde donde lo tengas guardado
+  String _usuario = '';// Debes obtener el nombre de usuario desde donde lo tengas guardado
   int _estrellas = 0;
+   int _nivelesExitososNaruto = 0;
+  int _nivelesTotalesNaruto = 0;
+  int _nivelesExitososKimetsu = 0;
+  int _nivelesTotalesKimetsu = 0;
+
+  @override 
+  void initState() {
+    super.initState();
+    _getUsuarios();    
+  }
+
+void _getUsuarios() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String usuario = prefs.getString('usuario') ?? '';
+  setState(() {
+    _usuario = usuario;
+  });
+
+  // Aquí es donde imprimirás la lista de usuarios registrados en la base de datos
+  List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
+  print('Lista de usuarios registrados:');
+  for (var usuario in usuarios) {
+    print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
+  }
+
+   int estrellas = await BaseDeDatos.getEstrellas(usuario);
+    setState(() {
+      _estrellas = estrellas;
+    });
+
+  int nivelesExitososNaruto = await BaseDeDatos.getNivelesExitososNaruto(usuario);
+  int nivelesTotalesNaruto = await BaseDeDatos.getNivelesTotalesNaruto(usuario);
+  int nivelesExitososKimetsu = await BaseDeDatos.getNivelesExitososKimetsu(usuario);
+  int nivelesTotalesKimetsu = await BaseDeDatos.getNivelesTotalesKimetsu(usuario);
+
+  setState(() {
+    _nivelesExitososNaruto = nivelesExitososNaruto;
+    _nivelesTotalesNaruto = nivelesTotalesNaruto;
+    _nivelesExitososKimetsu = nivelesExitososKimetsu;
+    _nivelesTotalesKimetsu = nivelesTotalesKimetsu;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Text(
-                                '1/20',
+                                '$_nivelesExitososNaruto/$_nivelesTotalesNaruto',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -137,55 +183,56 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 30), // Espacio entre las barras de personajes
                   Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
-                      borderRadius: BorderRadius.circular(25.0), // Borde redondeado
-                    ),
-                    width: 320, // Ancho de la barra de personajes de Kimetsu No Yaiba (ajusta según tus necesidades)
-                    height: 50, // Alto de la barra
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Kimetsu No Yaiba',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(width: 10), // Espacio entre el nombre y el logo de Kimetsu No Yaiba
-                              Image.asset(
-                                'assets/inosuke.png', // Ruta de la imagen de Kimetsu No Yaiba
-                                height: 24, // Ajusta el alto de la imagen
-                                width: 24, // Ajusta el ancho de la imagen
-                              ),
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
+                          borderRadius: BorderRadius.circular(25.0), // Borde redondeado
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                '1/20',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        width: 320, // Ancho de la barra de personajes de Kimetsu No Yaiba (ajusta según tus necesidades)
+                        height: 50, // Alto de la barra
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Kimetsu No Yaiba',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10), // Espacio entre el nombre y la imagen de Kimetsu No Yaiba
+                                  Image.asset(
+                                    'assets/inosuke.png', // Ruta de la imagen de Kimetsu No Yaiba
+                                    height: 60, // Ajusta el alto de la imagen
+                                    width: 40, // Ajusta el ancho de la imagen
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '$_nivelesExitososKimetsu/$_nivelesTotalesKimetsu',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
                 ],
               ),
             ),
@@ -194,4 +241,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}                             
+}

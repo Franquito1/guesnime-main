@@ -9,14 +9,23 @@ class BaseDeDatos {
     if (_database == null) {
       _database = await openDatabase('bd.db',
           version: 1, onCreate: (db, version) async {
-        await db.execute('CREATE TABLE usuarios ('
-            'nombre TEXT PRIMARY KEY,'
-            'Estrellas INTEGER NOT NULL)');
+        await db.execute('''
+          CREATE TABLE usuarios (
+            nombre TEXT PRIMARY KEY,
+            estrellas INTEGER NOT NULL,
+            nivelesExitososNaruto INTEGER,
+            nivelesTotalesNaruto INTEGER,
+            nivelesExitososKimetsu INTEGER,
+            nivelesTotalesKimetsu INTEGER
+          )
+        ''');
+
         await db.execute('CREATE TABLE niveles ('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'anime TEXT NOT NULL,'
             'personaje TEXT NOT NULL,'
             'imagen TEXT NOT NULL)');
+
       });
     }
 
@@ -42,6 +51,19 @@ class BaseDeDatos {
     }
   }
 
+  static Future<int> getEstrellas(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        where: 'nombre = ?', whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      Usuario usuario = Usuario.fromMap(usuariosMap[0]);
+      return usuario.estrellas;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
   static Future<int> insertarUsuario(Usuario usuario) async {
     final db = await getInstance();
 
@@ -56,16 +78,62 @@ class BaseDeDatos {
         where: 'nombre = ?', whereArgs: [usuario.nombre]);
   }
 
-  static Future<int> eliminarUsuario(String nombre) async {
+    static Future<int> getNivelesExitososNaruto(String nombreUsuario) async {
     final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesExitososNaruto'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
 
-    final int filasAfectadas =
-        await db.delete('usuarios', where: 'nombre = ?', whereArgs: [nombre]);
-
-    if (filasAfectadas == 0) {
-      throw Exception('El usuario no existe');
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesExitososNaruto'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
     }
-
-    return filasAfectadas;
   }
+
+   static Future<int> getNivelesTotalesNaruto(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesTotalesNaruto'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesTotalesNaruto'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
+   static Future<int> getNivelesExitososKimetsu(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesExitososKimetsu'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesExitososKimetsu'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
+   static Future<int> getNivelesTotalesKimetsu(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesTotalesKimetsu'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesTotalesKimetsu'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
+
+
 }

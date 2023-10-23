@@ -28,7 +28,7 @@ void _getUsuarios() async {
   List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
   print('Lista de usuarios registrados:');
   for (var usuario in usuarios) {
-    print('Nombre: ${usuario.nombre}, Estrellas: ${usuario.Estrellas}');
+    print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}');
   }
 }
 

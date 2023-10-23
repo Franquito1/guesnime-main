@@ -1,28 +1,36 @@
 class Usuario {
   String nombre;
-  int Estrellas;
+  int estrellas;
+  int nivelesExitososNaruto;
+  int nivelesTotalesNaruto;
+  int nivelesExitososKimetsu;
+  int nivelesTotalesKimetsu;
 
   Usuario({
     required this.nombre,
-    required this.Estrellas,
+    required this.estrellas,
+    required this.nivelesExitososNaruto,
+    required this.nivelesTotalesNaruto,
+    required this.nivelesExitososKimetsu,
+    required this.nivelesTotalesKimetsu,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'nombre': nombre,
-      'Estrellas': Estrellas,
-    };
-  }
+  // Constructor que convierte un mapa en un objeto Usuario
+  Usuario.fromMap(Map<String, dynamic> map)
+      : nombre = map['nombre'],
+        estrellas = map['estrellas'],
+        nivelesExitososNaruto = map['nivelesExitososNaruto'],
+        nivelesTotalesNaruto = map['nivelesTotalesNaruto'],
+        nivelesExitososKimetsu = map['nivelesExitososKimetsu'],
+        nivelesTotalesKimetsu = map['nivelesTotalesKimetsu'];
 
-  factory Usuario.fromMap(Map<String, dynamic> map) {
-    return Usuario(
-      nombre: map['nombre'],
-      Estrellas: map['Estrellas'],
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Usuario{nombre: $nombre, Estrellas: $Estrellas}';
-  }
+  // Método que convierte un objeto Usuario en un mapa
+  Map<String, dynamic> toMap() => {
+        'nombre': nombre,
+        'estrellas': estrellas,
+        'nivelesExitososNaruto': nivelesExitososNaruto,
+        'nivelesTotalesNaruto': nivelesTotalesNaruto,
+        'nivelesExitososKimetsu': nivelesExitososKimetsu,
+        'nivelesTotalesKimetsu': nivelesTotalesKimetsu,
+      };
 }
