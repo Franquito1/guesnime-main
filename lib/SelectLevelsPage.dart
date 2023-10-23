@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/LevelPage.dart';
 
-class LevelsPage extends StatefulWidget {
+class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
 
-  LevelsPage({required this.levelImage, required this.levelAnswer});
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer});
 
   @override
-  _LevelsPageState createState() => _LevelsPageState();
+  _SelectLevelsPage createState() => _SelectLevelsPage();
   
 }
 
-class _LevelsPageState extends State<LevelsPage> {
+class _SelectLevelsPage extends State<SelectLevelsPage> {
   List<int> levels = [1, 2, 3, 4, 5];
   List<String> levelImageUrls = [
     'LevelImage/level1.png',

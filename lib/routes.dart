@@ -7,7 +7,7 @@ class Routes {
   static final Map<String, WidgetBuilder> routes = {
     '/': (BuildContext context) => RegisterPage(),
     '/login': (BuildContext context) => LoginPage(),
-    '/home': (BuildContext context) => HomePage(),
+    '/home': (BuildContext context) => HomePage(),    
     
     
   };

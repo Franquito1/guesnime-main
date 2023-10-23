@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/SelectLevelsPage.dart';
 import 'package:guesnime/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,9 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _usuario = '';// Debes obtener el nombre de usuario desde donde lo tengas guardado
+  String _usuario = '';
   int _estrellas = 0;
-   int _nivelesExitososNaruto = 0;
+  int _nivelesExitososNaruto = 0;
   int _nivelesTotalesNaruto = 0;
   int _nivelesExitososKimetsu = 0;
   int _nivelesTotalesKimetsu = 0;
@@ -134,7 +135,16 @@ void _getUsuarios() async {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
+                  GestureDetector(
+                  onTap: (){
+                      Navigator.push(
+                          context,
+            MaterialPageRoute(
+              builder: (context) => SelectLevelsPage( levelImage: 'assets/defaul_image.png', levelAnswer: 'Naruto',),
+                             ), 
+                      );
+                  },
+                  child: Container(
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Naruto
                       borderRadius: BorderRadius.circular(25.0), // Borde redondeado
@@ -182,6 +192,7 @@ void _getUsuarios() async {
                         ),
                       ],
                     ),
+                  ),
                   ),
                   SizedBox(height: 30), // Espacio entre las barras de personajes
                   Container(
