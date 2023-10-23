@@ -140,7 +140,12 @@ void _getUsuarios() async {
                       Navigator.push(
                           context,
             MaterialPageRoute(
-              builder: (context) => SelectLevelsPage( levelImage: 'assets/defaul_image.png', levelAnswer: 'Naruto',),
+              builder: (context) => SelectLevelsPage( 
+                usuario: _usuario,
+                estrellas: _estrellas,
+                levelImage: 'assets/defaul_image.png',
+                levelAnswer: 'Naruto',
+                ),
                              ), 
                       );
                   },

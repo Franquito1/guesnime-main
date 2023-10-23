@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class LevelPage extends StatefulWidget {
   final String levelImage;
-  
   final String levelAnswer;
+  final String usuario;
+  final int estrellas;
 
-  LevelPage({required this.levelImage, required this.levelAnswer});
+
+  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario, required this.estrellas});
   
 
   @override
@@ -14,14 +16,21 @@ class LevelPage extends StatefulWidget {
 
 class _LevelPageState extends State<LevelPage> 
 {
-  String _usuario = 'Nombre de Usuario'; // Debes obtener el nombre de usuario desde donde lo tengas guardado
-  int _estrellas = 0;
+  late String _usuario;
+  late int _estrellas;
   final TextEditingController _answerController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _usuario = widget.usuario;
+    _estrellas = widget.estrellas;
+  }
 
   @override
   void dispose() {
     _answerController.dispose();
-    super.dispose();
+    super.dispose();  
   }
 
   void checkAnswer() {

@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/LevelPage.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
+  final String usuario;
+  final int estrellas;
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer});
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required this.estrellas});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
   
 }
+
+
+
 
 class _SelectLevelsPage extends State<SelectLevelsPage> {
   List<int> levels = [1, 2, 3, 4, 5];
@@ -28,13 +35,13 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     'Sasuke',
     'Sasori',
   ];
-
-
+  
+  
   @override
   Widget build(BuildContext context) {
     final String levelImage = widget.levelImage;
-    String _usuario = 'Nombre de Usuario'; // Debes obtener el nombre de usuario desde donde lo tengas guardado
-  int _estrellas = 0;
+    String _usuario = widget.usuario;
+  int _estrellas = widget.estrellas;
 
   return Scaffold(
     body: Container(
@@ -125,10 +132,15 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LevelPage(
+                          builder: (context)  {
+              
+                           return LevelPage(
                             levelImage: levelImageUrls[index],
                             levelAnswer: levelAnswers[index],
-                          ),
+                             usuario: widget.usuario, 
+                             estrellas: widget.estrellas, 
+                            );  
+                          },
                         ),
                       );
                     }
