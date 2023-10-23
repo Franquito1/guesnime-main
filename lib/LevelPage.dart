@@ -19,6 +19,7 @@ class _LevelPageState extends State<LevelPage>
   late String _usuario;
   late int _estrellas;
   final TextEditingController _answerController = TextEditingController();
+  late String LevelImage1 = widget.levelImage;
 
   @override
   void initState() {
@@ -63,14 +64,14 @@ class _LevelPageState extends State<LevelPage>
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Incorrecto'),
-            content: Text('Inténtalo de nuevo'),
+            title: const Text('Incorrecto'),
+            content: const Text('Inténtalo de nuevo'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -81,11 +82,11 @@ class _LevelPageState extends State<LevelPage>
 
   @override
   Widget build(BuildContext context) {
-    final String levelImage = widget.levelImage;
+      final String levelImage = widget.levelImage;
 
   return Scaffold(
     body: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Color(0xFF394065),
     ),
     child: Stack(
@@ -119,7 +120,7 @@ class _LevelPageState extends State<LevelPage>
                     children: [
                       Text(
                         ' $_usuario',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -134,7 +135,7 @@ class _LevelPageState extends State<LevelPage>
                     children: [
                       Text(
                         ' $_estrellas',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -167,13 +168,13 @@ class _LevelPageState extends State<LevelPage>
                 height: 280, // Ajusta el alto de la imagen del nivel
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/LevelImage/level1.png'),
+                    image: AssetImage(LevelImage1),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Entrada de texto
               Container(
                 width: 200,
@@ -184,18 +185,18 @@ class _LevelPageState extends State<LevelPage>
                 ),
                 child: TextField(
                   controller: _answerController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Ingresa tu respuesta',
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Botón "Enviar"
               ElevatedButton(
                 onPressed: checkAnswer,
-                child: Text('Enviar'),
+                child: const Text('Enviar'),
               ),
             ],
           ),

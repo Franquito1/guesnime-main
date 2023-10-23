@@ -79,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Espacio entre los campos y el botón
+              const SizedBox(height: 20), // Espacio entre los campos y el botón
               ElevatedButton(
                 onPressed: () async {
                   // Crear un nuevo usuario
