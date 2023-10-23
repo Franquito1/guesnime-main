@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:animate_do/animate_do.dart';
+
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -29,8 +31,8 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFF394065),
+        decoration: const BoxDecoration(
+          color:const  Color(0xFF394065),
         ),
         child: Center(
           child: Column(
@@ -41,13 +43,24 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 350,
                 width: 296,
               ),
-              SizedBox(height: 10),
-              Text(
-                'Bienvenido a Guesnime!',
-                style: TextStyle(
-                  color: Colors.white,
-                  decoration: TextDecoration.underline,
-                ),
+              const SizedBox(height: 10),
+              FutureBuilder(
+                future: Future.delayed(const Duration(seconds: 2)),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return FadeInUpBig(
+                      child: const Text(
+                        'Bienvenido a Guesnime!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
               ),
               SizedBox(height: 4), // Espacio entre el logo y los campos
               Container(
@@ -60,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 child: TextFormField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Nombre de usuario',
                     border: InputBorder.none,
                   ),
