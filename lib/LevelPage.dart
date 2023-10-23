@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class LevelPage extends StatefulWidget {
   final String levelImage;
+  
+  final String levelAnswer;
 
-  LevelPage({required this.levelImage});
+  LevelPage({required this.levelImage, required this.levelAnswer});
 
   @override
   _LevelPageState createState() => _LevelPageState();
@@ -12,6 +14,58 @@ class LevelPage extends StatefulWidget {
 class _LevelPageState extends State<LevelPage> {
   String _usuario = 'Nombre de Usuario'; // Debes obtener el nombre de usuario desde donde lo tengas guardado
   int _estrellas = 0;
+  final TextEditingController _answerController = TextEditingController();
+
+  @override
+  void dispose() {
+    _answerController.dispose();
+    super.dispose();
+  }
+
+  void checkAnswer() {
+    String userAnswer = _answerController.text;
+    String correctAnswer = widget.levelAnswer;
+    if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
+      setState(() {
+        _estrellas += 1;
+      });
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('¡Correcto!'),
+            content: Text('¡Has acertado!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Incorrecto'),
+            content: Text('Inténtalo de nuevo'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +171,7 @@ class _LevelPageState extends State<LevelPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: _answerController,
                 decoration: InputDecoration(
                   hintText: 'Ingresa tu respuesta',
                   border: InputBorder.none,
@@ -127,7 +182,7 @@ class _LevelPageState extends State<LevelPage> {
             SizedBox(height: 20),
             // Botón "Enviar"
             ElevatedButton(
-              onPressed: () {},
+              onPressed: checkAnswer,
               child: Text('Enviar'),
             ),
                 ],

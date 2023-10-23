@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/LevelPage.dart';
 
-
 class LevelsPage extends StatefulWidget {
   final String levelImage;
+  final String levelAnswer;
 
-  LevelsPage({required this.levelImage});
+  LevelsPage({required this.levelImage, required this.levelAnswer});
 
   @override
   _LevelsPageState createState() => _LevelsPageState();
@@ -18,13 +18,22 @@ class _LevelsPageState extends State<LevelsPage> {
     'LevelImage/level2.png',
     'LevelImage/level3.png',
     'LevelImage/level4.png',
-    'LevelImage/level5.png'
+    'LevelImage/level5.png',
+  ];
+  List<String> levelAnswers = [
+    'Sakura',
+    'Respuesta 2',
+    'Respuesta 3',
+    'Respuesta 4',
+    'Respuesta 5',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Niveles'),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           color: Color(0xFF394065),
@@ -51,39 +60,49 @@ class _LevelsPageState extends State<LevelsPage> {
               ],
             ),
             SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: levels.asMap().entries.map((entry) {
-                int index = entry.key;
-                  String levelImageUrl = levelImageUrls[index]; // Agregar esta línea
-                return Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: levels.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (index < levelImageUrls.length && index < levelAnswers.length) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LevelPage(levelImage: levelImageUrl),
+                          builder: (context) => LevelPage(
+                            levelImage: levelImageUrls[index],
+                            levelAnswer: levelAnswers[index],
+                          ),
                         ),
                       );
-                    },
-                    child: Text((index + 1).toString()),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
+                    }
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(16),
+                    width: 50, // Width of the white box
+                    height: 50, // Height of the white box
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${levels[index]}',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 );
-              }).toList(),
+              },
             ),
           ],
         ),
-     ),
-);
-}
+      ),
+    );
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guesnime/LevelsPage.dart';
-import 'package:guesnime/RegisterPage.dart';
+import 'package:guesnime/SelectLevelsPage.dart';
 import 'package:guesnime/routes.dart';
 
 void main() {
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LevelsPage(levelImage: 'default_image.png')    );
+      home: LevelsPage( levelImage: 'assets/defaul_image.png', levelAnswer: 'Naruto',),
+    );
   }
 }
