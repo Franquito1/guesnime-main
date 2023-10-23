@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/Usuario.dart';
@@ -6,12 +7,15 @@ import 'package:animate_do/animate_do.dart';
 
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
   final _usernameController = TextEditingController();
+  late BuildContext _context;
 
   @override
   void initState() {
@@ -23,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool userRegistered = prefs.getBool('userRegistered') ?? false;
     if (userRegistered) {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(_context, '/login');
     }
   }
 
@@ -32,7 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color:const  Color(0xFF394065),
+          color:  Color(0xFF394065),
         ),
         child: Center(
           child: Column(
@@ -94,14 +98,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   await BaseDeDatos.insertarUsuario(usuario);
 
                   // Obtener la lista de usuarios de la base de datos
-                  List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
+                  //List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
 
                     // Guardar el nombre de usuario en SharedPreferences
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setString('usuario', usuario.nombre);
                   
                   // Imprimir un mensaje de depuración en la consola
-                  print('Usuario insertado en la base de datos: $usuario');
+                  //print('Usuario insertado en la base de datos: $usuario');
 
                   // Guardar la bandera de usuario registrado en SharedPreferences
                   await prefs.setBool('userRegistered', true);

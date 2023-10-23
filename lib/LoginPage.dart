@@ -5,7 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animate_do/animate_do.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -37,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF394065),
+        decoration: const BoxDecoration(
+          color:  Color(0xFF394065),
         ),
         child: Center(
           child: Column(
@@ -57,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                     return FadeInUpBig(
                       child: Text(
                         '${_usuario ?? ''} Bienvenido a Guesnime!',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           decoration: TextDecoration.underline,
                         ),

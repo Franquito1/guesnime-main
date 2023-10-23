@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class LevelPage extends StatefulWidget {
@@ -7,10 +8,11 @@ class LevelPage extends StatefulWidget {
   final int estrellas;
 
 
-  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario, required this.estrellas});
+  const LevelPage({super.key, required this.levelImage, required this.levelAnswer, required this.usuario, required this.estrellas});
   
 
   @override
+  // ignore: library_private_types_in_public_api
   _LevelPageState createState() => _LevelPageState();
 }
 
@@ -19,7 +21,7 @@ class _LevelPageState extends State<LevelPage>
   late String _usuario;
   late int _estrellas;
   final TextEditingController _answerController = TextEditingController();
-  late String LevelImage1 = widget.levelImage;
+  late String levelImage1 = widget.levelImage;
 
   @override
   void initState() {
@@ -45,15 +47,15 @@ class _LevelPageState extends State<LevelPage>
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('¡Correcto!'),
-            content: Text('¡Has acertado!'),
+            title: const Text('¡Correcto!'),
+            content: const Text('¡Has acertado!'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pop(context, _estrellas);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -82,7 +84,6 @@ class _LevelPageState extends State<LevelPage>
 
   @override
   Widget build(BuildContext context) {
-      final String levelImage = widget.levelImage;
 
   return Scaffold(
     body: Container(
@@ -168,7 +169,7 @@ class _LevelPageState extends State<LevelPage>
                 height: 280, // Ajusta el alto de la imagen del nivel
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(LevelImage1),
+                    image: AssetImage(levelImage1),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(10),

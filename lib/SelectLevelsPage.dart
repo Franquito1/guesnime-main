@@ -1,7 +1,6 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/LevelPage.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
@@ -9,9 +8,10 @@ class SelectLevelsPage extends StatefulWidget {
   final String usuario;
   final int estrellas;
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required this.estrellas});
+  const SelectLevelsPage({super.key, required this.levelImage, required this.levelAnswer,required this.usuario,required this.estrellas});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SelectLevelsPage createState() => _SelectLevelsPage();
   
 }
@@ -39,13 +39,13 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
   
   @override
   Widget build(BuildContext context) {
-    final String levelImage = widget.levelImage;
-    String _usuario = widget.usuario;
-  int _estrellas = widget.estrellas;
+    //final String levelImage = widget.levelImage;
+    String usuario = widget.usuario;
+  int estrellas = widget.estrellas;
 
   return Scaffold(
     body: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Color(0xFF394065),
     ),
     child: Stack(
@@ -78,8 +78,8 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                   child: Row(
                     children: [
                       Text(
-                        ' $_usuario',
-                        style: TextStyle(
+                        ' $usuario',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -93,8 +93,8 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                   child: Row(
                     children: [
                       Text(
-                        ' $_estrellas',
-                        style: TextStyle(
+                        ' $estrellas',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
