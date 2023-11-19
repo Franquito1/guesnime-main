@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/EstrellasProvider.dart';
+import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
 
 class LevelPage extends StatefulWidget {
@@ -110,72 +111,7 @@ void checkAnswer() async {
     ),
     child: Stack(
       children: [
-        Positioned(
-          left: -20,
-          top: -80, // Ajusta la posición superior para la imagen
-          child: Image.asset(
-            'assets/guesnimelogo.png',
-            height: 325,
-            width: 189,
-          ),
-        ),
-        Positioned(
-          left: 134,
-          right: 10,
-          top: 69,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 202, 202, 202),
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            width: 200,
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        ' $_usuario',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        ' $_estrellas',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          left: 322,
-          top: 67,
-          child: Image.asset(
-            'assets/Estrella.png',
-            height: 50,
-            width: 50,
-          ),
-        ),
+                UserAppBar(usuario: _usuario), 
         Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
