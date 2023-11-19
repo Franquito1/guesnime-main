@@ -3,6 +3,8 @@ import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:guesnime/EstrellasProvider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -30,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     print('Lista de usuarios registrados:');
     for (var usuario in usuarios) {
       print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}');
+      Provider.of<StarsProvider>(context, listen: false).setStars(usuario.estrellas);
     }
   }
 

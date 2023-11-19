@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/EstrellasProvider.dart';
 import 'package:guesnime/LevelPage.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
-  final int estrellas;
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required this.estrellas});
+
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
@@ -41,7 +43,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
   Widget build(BuildContext context) {
     final String levelImage = widget.levelImage;
     String _usuario = widget.usuario;
-  int _estrellas = widget.estrellas;
+ 
 
   return Scaffold(
     body: Container(
@@ -93,7 +95,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                   child: Row(
                     children: [
                       Text(
-                        ' $_estrellas',
+                        '${Provider.of<StarsProvider>(context).stars}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -108,7 +110,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
           ),
         ),
         Positioned(
-          left: 334,
+          left: 322,
           top: 67,
           child: Image.asset(
             'assets/Estrella.png',
@@ -138,7 +140,6 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                             levelImage: levelImageUrls[index],
                             levelAnswer: levelAnswers[index],
                              usuario: widget.usuario, 
-                             estrellas: widget.estrellas, 
                             );  
                           },
                         ),

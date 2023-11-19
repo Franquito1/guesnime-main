@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/EstrellasProvider.dart';
+import 'package:provider/provider.dart';
 
 class LevelPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
-  final int estrellas;
 
 
-  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario, required this.estrellas});
+  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario});
   
 
   @override
@@ -20,11 +22,23 @@ class _LevelPageState extends State<LevelPage>
   late int _estrellas;
   final TextEditingController _answerController = TextEditingController();
 
+
+  Future<void> updateStarsInDatabase() async {
+    final db = await BaseDeDatos.getInstance();
+    _estrellas += 3; 
+
+    await db.rawUpdate(
+      'UPDATE usuarios SET estrellas = ? WHERE nombre = ?',
+      [_estrellas, _usuario],
+    );
+     Provider.of<StarsProvider>(context, listen: false).setStars(_estrellas);
+  }
+
   @override
   void initState() {
     super.initState();
     _usuario = widget.usuario;
-    _estrellas = widget.estrellas;
+    _estrellas = Provider.of<StarsProvider>(context, listen: false).stars;
   }
 
   @override
@@ -33,13 +47,18 @@ class _LevelPageState extends State<LevelPage>
     super.dispose();  
   }
 
-  void checkAnswer() {
-    String userAnswer = _answerController.text;
-    String correctAnswer = widget.levelAnswer;
-    if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
-      setState(() {
-        _estrellas += 1;
-      });
+void checkAnswer() async {
+  String userAnswer = _answerController.text;
+  String correctAnswer = widget.levelAnswer;
+  
+  if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
+    await updateStarsInDatabase();
+
+        setState(() {
+      _estrellas = _estrellas;
+    });
+
+
       showDialog(
         context: context,
         builder: (context) {
@@ -148,7 +167,7 @@ class _LevelPageState extends State<LevelPage>
           ),
         ),
         Positioned(
-          left: 334,
+          left: 322,
           top: 67,
           child: Image.asset(
             'assets/Estrella.png',

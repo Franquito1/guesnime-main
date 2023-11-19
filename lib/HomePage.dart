@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
+import 'package:guesnime/EstrellasProvider.dart';
 import 'package:guesnime/SelectLevelsPage.dart';
 import 'package:guesnime/Usuario.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -108,7 +110,7 @@ void _getUsuarios() async {
                       child: Row(
                         children: [
                           Text(
-                            ' $_estrellas',
+                            '${Provider.of<StarsProvider>(context).stars}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -123,7 +125,7 @@ void _getUsuarios() async {
               ),
             ),
             Positioned(
-              left: 334, // Ajusta la posición izquierda para la estrella
+              left: 322, // Ajusta la posición izquierda para la estrella
               top: 67, // Ajusta la posición superior para la estrella (misma que la barra de usuario)
               child: Image.asset(
                 'assets/Estrella.png',
@@ -142,7 +144,7 @@ void _getUsuarios() async {
             MaterialPageRoute(
               builder: (context) => SelectLevelsPage( 
                 usuario: _usuario,
-                estrellas: _estrellas,
+                estrellas: Provider.of<StarsProvider>(context, listen: false).stars,
                 levelImage: 'assets/defaul_image.png',
                 levelAnswer: 'Naruto',
                 ),
@@ -154,7 +156,7 @@ void _getUsuarios() async {
                       color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Naruto
                       borderRadius: BorderRadius.circular(25.0), // Borde redondeado
                     ),
-                    width: 320, // Ancho de la barra de personajes de Naruto (ajusta según tus necesidades)
+                    width: 320, // Ancho de la barra 
                     height: 50, // Alto de la barra
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
