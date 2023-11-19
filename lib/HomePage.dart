@@ -214,6 +214,7 @@ void _getUsuarios() async {
                           color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
                           borderRadius: BorderRadius.circular(25.0), // Borde redondeado
                         ),
+                        
                         width: 320, // Ancho de la barra de personajes de Kimetsu No Yaiba (ajusta según tus necesidades)
                         height: 50, // Alto de la barra
                         child: Row(
