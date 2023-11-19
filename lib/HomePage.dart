@@ -7,7 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -34,9 +37,10 @@ void _getUsuarios() async {
 
   // Aquí es donde imprimirás la lista de usuarios registrados en la base de datos
   List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
-  print('Lista de usuarios registrados:');
+  //print('Lista de usuarios registrados:');
+'Nombre: ${usuario.nombre}, estrellas: ${usuario.est  // ignore: unused_local_variable
   for (var usuario in usuarios) {
-    print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
+    //print(rellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
   }
 
    int estrellas = await BaseDeDatos.getEstrellas(usuario);
@@ -62,7 +66,7 @@ void _getUsuarios() async {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFF394065),
         ),
         child: Stack(
@@ -96,7 +100,7 @@ void _getUsuarios() async {
                         children: [
                           Text(
                             ' $_usuario',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -165,7 +169,7 @@ void _getUsuarios() async {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Naruto',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -173,7 +177,7 @@ void _getUsuarios() async {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(width: 10), // Espacio entre el nombre y el logo de Naruto
+                              const SizedBox(width: 10), // Espacio entre el nombre y el logo de Naruto
                               Image.asset(
                                 'assets/narutokunai.png', // Ruta de la imagen de Naruto
                                 height: 24, // Ajusta el alto de la imagen
@@ -188,7 +192,7 @@ void _getUsuarios() async {
                             children: [
                               Text(
                                 '$_nivelesExitososNaruto/$_nivelesTotalesNaruto',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -201,7 +205,7 @@ void _getUsuarios() async {
                     ),
                   ),
                   ),
-                  SizedBox(height: 30), // Espacio entre las barras de personajes
+                  const SizedBox(height: 30), // Espacio entre las barras de personajes
                   Container(
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
@@ -216,7 +220,7 @@ void _getUsuarios() async {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Kimetsu No Yaiba',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -224,7 +228,7 @@ void _getUsuarios() async {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 10), // Espacio entre el nombre y la imagen de Kimetsu No Yaiba
+                                  const SizedBox(width: 10), // Espacio entre el nombre y la imagen de Kimetsu No Yaiba
                                   Image.asset(
                                     'assets/inosuke.png', // Ruta de la imagen de Kimetsu No Yaiba
                                     height: 60, // Ajusta el alto de la imagen
@@ -239,7 +243,7 @@ void _getUsuarios() async {
                                 children: [
                                   Text(
                                     '$_nivelesExitososKimetsu/$_nivelesTotalesKimetsu',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

@@ -24,11 +24,11 @@ class SelectLevelsPage extends StatefulWidget {
 class _SelectLevelsPage extends State<SelectLevelsPage> {
   List<int> levels = [1, 2, 3, 4, 5];
   List<String> levelImageUrls = [
-    'LevelImage/level1.png',
-    'LevelImage/level2.png',
-    'LevelImage/level3.png',
-    'LevelImage/level4.png',
-    'LevelImage/level5.png',
+    'assets/LevelImage/level1.png',
+    'assets/LevelImage/level2.png',
+    'assets/LevelImage/level3.png',
+    'assets/LevelImage/level4.png',
+    'assets/LevelImage/level5.png',
   ];
   List<String> levelAnswers = [
     'Sakura',
@@ -47,7 +47,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
 
   return Scaffold(
     body: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Color(0xFF394065),
     ),
     child: Stack(
@@ -81,7 +81,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                     children: [
                       Text(
                         ' $_usuario',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -122,10 +122,10 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: levels.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
@@ -157,7 +157,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                     child: Center(
                       child: Text(
                         '${levels[index]}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),

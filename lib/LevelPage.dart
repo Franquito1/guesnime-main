@@ -13,6 +13,7 @@ class LevelPage extends StatefulWidget {
   
 
   @override
+  // ignore: library_private_types_in_public_api
   _LevelPageState createState() => _LevelPageState();
 }
 
@@ -21,6 +22,7 @@ class _LevelPageState extends State<LevelPage>
   late String _usuario;
   late int _estrellas;
   final TextEditingController _answerController = TextEditingController();
+  late String levelImage1 = widget.levelImage;
 
 
   Future<void> updateStarsInDatabase() async {
@@ -63,15 +65,15 @@ void checkAnswer() async {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('¡Correcto!'),
-            content: Text('¡Has acertado!'),
+            title: const Text('¡Correcto!'),
+            content: const Text('¡Has acertado!'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pop(context, _estrellas);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -82,14 +84,14 @@ void checkAnswer() async {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Incorrecto'),
-            content: Text('Inténtalo de nuevo'),
+            title: const Text('Incorrecto'),
+            content: const Text('Inténtalo de nuevo'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -100,11 +102,10 @@ void checkAnswer() async {
 
   @override
   Widget build(BuildContext context) {
-    final String levelImage = widget.levelImage;
 
   return Scaffold(
     body: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Color(0xFF394065),
     ),
     child: Stack(
@@ -138,7 +139,7 @@ void checkAnswer() async {
                     children: [
                       Text(
                         ' $_usuario',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -153,7 +154,7 @@ void checkAnswer() async {
                     children: [
                       Text(
                         ' $_estrellas',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -186,13 +187,13 @@ void checkAnswer() async {
                 height: 280, // Ajusta el alto de la imagen del nivel
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/LevelImage/level1.png'),
+                    image: AssetImage(levelImage1),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Entrada de texto
               Container(
                 width: 200,
@@ -203,18 +204,18 @@ void checkAnswer() async {
                 ),
                 child: TextField(
                   controller: _answerController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Ingresa tu respuesta',
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Botón "Enviar"
               ElevatedButton(
                 onPressed: checkAnswer,
-                child: Text('Enviar'),
+                child: const Text('Enviar'),
               ),
             ],
           ),
