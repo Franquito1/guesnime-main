@@ -5,6 +5,7 @@ import 'package:guesnime/SelectLevelsPage.dart';
 import 'package:guesnime/Usuario.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'UserAppBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,10 +41,6 @@ void _getUsuarios() async {
   print('Lista de usuarios registrados:');
   for (var usuario in usuarios) {
     print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
-  if (usuario.nombre == _usuario) {
-      // Establecer el valor de las estrellas en el Provider al valor de las estrellas del usuario actual
-      Provider.of<StarsProvider>(context, listen: false).setStars(usuario.estrellas);
-    }
   }
 
    int estrellas = await BaseDeDatos.getEstrellas(usuario);
@@ -64,7 +61,6 @@ void _getUsuarios() async {
   });
 }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,73 +69,8 @@ void _getUsuarios() async {
           color: Color(0xFF394065),
         ),
         child: Stack(
-          children: [
-            Positioned(
-              left: -20, // Ajusta la posición izquierda para el logo
-              top: -65, // Ajusta la posición superior para el logo
-              child: Image.asset(
-                'assets/guesnimelogo.png',
-                height: 325, // Ajusta el alto del logo
-                width: 189, // Ajusta el ancho del logo
-              ),
-            ),
-            Positioned(
-              left: 134, // Ajusta la posición izquierda para la barra de usuario
-              right: 10,
-              top: 69, // Ajusta la posición superior para la barra de usuario
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de usuario
-                  borderRadius: BorderRadius.circular(25.0), // Borde redondeado
-                ),
-                width: 200, // Ancho de la barra de usuario
-                height: 50, // Alto de la barra de usuario
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            ' $_usuario',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            '${Provider.of<StarsProvider>(context).stars}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: 322, // Ajusta la posición izquierda para la estrella
-              top: 67, // Ajusta la posición superior para la estrella (misma que la barra de usuario)
-              child: Image.asset(
-                'assets/Estrella.png',
-                height: 50, // Ajusta el alto de la estrella (mismo que el logo)
-                width: 50, // Ajusta el ancho de la estrella (mismo que el logo)
-              ),
-            ),
+          children: [     
+            UserAppBar(usuario: _usuario), 
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -155,9 +86,9 @@ void _getUsuarios() async {
                 levelImage: 'assets/defaul_image.png',
                 levelAnswer: 'Naruto',
                 ),
-                             ), 
-                      );
-                  },
+            ), 
+          );
+       },
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Naruto
