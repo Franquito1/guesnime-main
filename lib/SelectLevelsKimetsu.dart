@@ -37,7 +37,9 @@ class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
     'Zenitsu',
     'Hinatsuru',
   ];
-  
+
+  List<bool> levelCompleted = List.generate(5, (index) => false);
+
   
   @override
   Widget build(BuildContext context) {
@@ -128,30 +130,37 @@ class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: levels.length,
               itemBuilder: (context, index) {
+                bool isCompleted = index < Provider.of<StarsProvider>(context).stars;
+                print('Level $index is completed: $isCompleted');
                 return GestureDetector(
                   onTap: () {
-                    if (index < levelImageUrls.length && index < levelAnswers.length) {
+                    if (!isCompleted || index < levelImageUrls.length && index < levelAnswers.length) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)  {
-              
-                           return LevelPage(
-                            levelImage: levelImageUrls[index],
-                            levelAnswer: levelAnswers[index],
-                             usuario: widget.usuario, 
+                          builder: (context) {
+                            return LevelPage(
+                              levelImage: levelImageUrls[index],
+                              levelAnswer: levelAnswers[index],
+                              levelIndex: levels[index],
+                              usuario: widget.usuario, 
+                              onLevelComplete: () {
+                                setState(() {
+                                  levelCompleted[index] = true;
+                                });
+                              },
                             );  
                           },
                         ),
                       );
                     }
-                  },
+                  }, 
                   child: Container(
                     margin: const EdgeInsets.all(16),
                     width: 50, // Width of the white box
                     height: 50, // Height of the white box
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                     color: levelCompleted[index] ? Colors.green : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(

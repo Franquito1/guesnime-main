@@ -5,13 +5,16 @@ import 'package:guesnime/LevelPage.dart';
 import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
+  final int levelIndex;
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario, required this.levelIndex, required estrellas});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
@@ -34,13 +37,21 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     'Sasuke',
     'Sasori',
   ];
-  
-  
+  List<bool> levelCompleted = List.generate(5, (index) => false);
+
+  late SharedPreferences _prefs;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final String levelImage = widget.levelImage;
     String _usuario = widget.usuario;
- 
+
 
   return Scaffold(
     body: Container(
@@ -61,18 +72,23 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
               itemCount: levels.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (index < levelImageUrls.length && index < levelAnswers.length) {
-                      Navigator.push(
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context)  {
-              
                            return LevelPage(
                             levelImage: levelImageUrls[index],
                             levelAnswer: levelAnswers[index],
+                            levelIndex: levels[index],
                              usuario: widget.usuario, 
-                            );  
+                             onLevelComplete: () async {
+                               setState(() {
+                                  levelCompleted[index] = true;
+                               });
+                             },
+                            );
                           },
                         ),
                       );
@@ -83,7 +99,8 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                     width: 50, // Width of the white box
                     height: 50, // Height of the white box
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                     color: levelCompleted[index] ? Colors.green : Colors.white,
+
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(

@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _usuario = '';
   int _estrellas = 0;
+
   int _nivelesExitososNaruto = 0;
   int _nivelesTotalesNaruto = 0;
   int _nivelesExitososKimetsu = 0;
@@ -54,6 +55,19 @@ void _getUsuarios() async {
   int nivelesExitososKimetsu = await BaseDeDatos.getNivelesExitososKimetsu(usuario);
   int nivelesTotalesKimetsu = await BaseDeDatos.getNivelesTotalesKimetsu(usuario);
 
+  void updateNivelesExitososNaruto() {
+  setState(() {
+    _nivelesExitososNaruto++;
+  });
+}
+
+
+  void updateNivelesExitososKimetsu() {
+  setState(() {
+    _nivelesExitososKimetsu++;
+  });
+}
+
   setState(() {
     _nivelesExitososNaruto = nivelesExitososNaruto;
     _nivelesTotalesNaruto = nivelesTotalesNaruto;
@@ -86,6 +100,7 @@ void _getUsuarios() async {
                 estrellas: Provider.of<StarsProvider>(context, listen: false).stars,
                 levelImage: 'assets/defaul_image.png',
                 levelAnswer: 'Naruto',
+                levelIndex: 1,
                 ),
             ), 
           );
