@@ -5,23 +5,23 @@ import 'package:guesnime/LevelPage.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SelectLevelsPage extends StatefulWidget {
+class SelectLevelsKimetsu extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
 
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
+  SelectLevelsKimetsu({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
 
   @override
-  _SelectLevelsPage createState() => _SelectLevelsPage();
+  _SelectLevelsKimetsu createState() => _SelectLevelsKimetsu();
   
 }
 
 
 
 
-class _SelectLevelsPage extends State<SelectLevelsPage> {
+class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
   List<int> levels = [1, 2, 3, 4, 5];
   List<String> levelImageUrls = [
     'assets/LevelImageKimetsu/level1.png',

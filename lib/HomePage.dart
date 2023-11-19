@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/EstrellasProvider.dart';
 import 'package:guesnime/SelectLevelsPage.dart';
+import 'package:guesnime/SelectLevelsKimetsu.dart' as Kimetsu;
 import 'package:guesnime/Usuario.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -140,56 +141,69 @@ void _getUsuarios() async {
                   ),
                   ),
                   const SizedBox(height: 30), // Espacio entre las barras de personajes
-                  Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
-                          borderRadius: BorderRadius.circular(25.0), // Borde redondeado
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Kimetsu.SelectLevelsKimetsu(
+                          usuario: _usuario,
+                          estrellas: Provider.of<StarsProvider>(context, listen: false).stars,
+                          levelImage: 'assets/defaul_image.png',
+                          levelAnswer: 'Kimetsu No Yaiba',
                         ),
-                        
-                        width: 320, // Ancho de la barra de personajes de Kimetsu No Yaiba (ajusta según tus necesidades)
-                        height: 50, // Alto de la barra
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Kimetsu No Yaiba',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10), // Espacio entre el nombre y la imagen de Kimetsu No Yaiba
-                                  Image.asset(
-                                    'assets/inosuke.png', // Ruta de la imagen de Kimetsu No Yaiba
-                                    height: 60, // Ajusta el alto de la imagen
-                                    width: 40, // Ajusta el ancho de la imagen
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    '$_nivelesExitososKimetsu/$_nivelesTotalesKimetsu',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
                         ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 202, 202, 202), // Color de fondo de la barra de personajes de Kimetsu No Yaiba
+                        borderRadius: BorderRadius.circular(25.0), // Borde redondeado
                       ),
+                      width: 320, // Ancho de la barra de personajes de Kimetsu No Yaiba (ajusta según tus necesidades)
+                      height: 50, // Alto de la barra
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  'Kimetsu No Yaiba',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 10), // Espacio entre el nombre y la imagen de Kimetsu No Yaiba
+                                Image.asset(
+                                  'assets/inosuke.png', // Ruta de la imagen de Kimetsu No Yaiba
+                                  height: 60, // Ajusta el alto de la imagen
+                                  width: 40, // Ajusta el ancho de la imagen
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '$_nivelesExitososKimetsu/$_nivelesTotalesKimetsu',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
