@@ -37,10 +37,13 @@ void _getUsuarios() async {
 
   // Aquí es donde imprimirás la lista de usuarios registrados en la base de datos
   List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
-  //print('Lista de usuarios registrados:');
-'Nombre: ${usuario.nombre}, estrellas: ${usuario.est  // ignore: unused_local_variable
+  print('Lista de usuarios registrados:');
   for (var usuario in usuarios) {
-    //print(rellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
+    print('Nombre: ${usuario.nombre}, estrellas: ${usuario.estrellas}, niveles exitosos de Naruto: ${usuario.nivelesExitososNaruto}, niveles totales de Naruto: ${usuario.nivelesTotalesNaruto}, niveles exitosos de Kimetsu No Yaiba: ${usuario.nivelesExitososKimetsu}, niveles totales de Kimetsu No Yaiba: ${usuario.nivelesTotalesKimetsu}');
+  if (usuario.nombre == _usuario) {
+      // Establecer el valor de las estrellas en el Provider al valor de las estrellas del usuario actual
+      Provider.of<StarsProvider>(context, listen: false).setStars(usuario.estrellas);
+    }
   }
 
    int estrellas = await BaseDeDatos.getEstrellas(usuario);

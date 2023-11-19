@@ -33,6 +33,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+     _context = context;
+    _checkIfUserRegistered();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
