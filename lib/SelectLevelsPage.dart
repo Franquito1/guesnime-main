@@ -21,13 +21,16 @@ class SelectLevelsPage extends StatefulWidget {
 }
 
 class _SelectLevelsPage extends State<SelectLevelsPage> {
-  List<int> levels = [1, 2, 3, 4, 5];
+  List<int> levels = [1, 2, 3, 4, 5, 6, 7, 8];
   List<String> levelImageUrls = [
     'assets/LevelImage/level1.png',
     'assets/LevelImage/level2.png',
     'assets/LevelImage/level3.png',
     'assets/LevelImage/level4.png',
     'assets/LevelImage/level5.png',
+    'assets/LevelImage/level6.png',
+    'assets/LevelImage/level7.png',
+    'assets/LevelImage/level8.png',
   ];
   List<String> levelAnswers = [
     'Sakura',
@@ -35,6 +38,9 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     'Jiraiya',
     'Sasuke',
     'Sasori',
+    'Rock lee',
+    'Itachi',
+    'Gaara'
   ];
 
   List<String> completedLevels = [];

@@ -24,13 +24,16 @@ class SelectLevelsKimetsu extends StatefulWidget {
 
 
 class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
-  List<int> levels = [1, 2, 3, 4, 5];
+  List<int> levels = [1, 2, 3, 4, 5, 6, 7, 8];
   List<String> levelImageUrls = [
     'assets/LevelImageKimetsu/level1.png',
     'assets/LevelImageKimetsu/level2.png',
     'assets/LevelImageKimetsu/level3.png',
     'assets/LevelImageKimetsu/level4.png',
     'assets/LevelImageKimetsu/level5.png',
+    'assets/LevelImageKimetsu/level6.png',
+    'assets/LevelImageKimetsu/level7.png',
+    'assets/LevelImageKimetsu/level8.png',
   ];
   List<String> levelAnswers = [
     'Tanjiro',
@@ -38,6 +41,9 @@ class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
     'Inosuke',
     'Zenitsu',
     'Hinatsuru',
+    'Muzan',
+    'Akaza',
+    'Mitsuri'
   ];
 
 

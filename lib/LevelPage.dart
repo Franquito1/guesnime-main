@@ -24,8 +24,9 @@ class _LevelPageState extends State<LevelPage>
 {
   late String _usuario;
   late int _estrellas;
-
-
+  static const int estrellasParaRevelarRespuesta = 5;
+  bool _respuestaRevelada = false;
+  late String correctAnswer;
   final TextEditingController _answerController = TextEditingController();
   late String levelImage1 = widget.levelImage;
 
@@ -49,66 +50,40 @@ class _LevelPageState extends State<LevelPage>
     _estrellas = Provider.of<StarsProvider>(context, listen: false).stars;
   }
 
-  @override
-  void dispose() {
-    _answerController.dispose();
-    super.dispose();  
-  }
+      @override
+      void dispose() {
+        _answerController.dispose();
+        super.dispose();  
+      }
 
-  void saveCompletedLevel(String levelAnswer) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
-  completedLevels.add(levelAnswer);
-  await prefs.setStringList('completedLevels', completedLevels);
-}
+      void saveCompletedLevel(String levelAnswer) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
+      completedLevels.add(levelAnswer);
+      await prefs.setStringList('completedLevels', completedLevels);
+    }
 
-void checkAnswer() async {
+  Future<bool> checkAnswer() async {
   String userAnswer = _answerController.text;
-  String correctAnswer = widget.levelAnswer;
+  correctAnswer = widget.levelAnswer;
   
   if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
-    await updateStarsInDatabase();
+    if (!_respuestaRevelada) {
+      await updateStarsInDatabase();
+    }
     saveCompletedLevel(correctAnswer);
-    setState(() {
-      _estrellas = _estrellas;
-    });
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('¡Correcto!'),
-          content: const Text('¡Has acertado!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); 
-                Navigator.pop(context, {'estrellas': _estrellas, 'nivelCompletado': correctAnswer}); 
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
+    return true;
   } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Incorrecto'),
-          content: const Text('Inténtalo de nuevo'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
+    if(_respuestaRevelada) {
+       print('Estrellas antes: $_estrellas');
+    setState(() {
+      _estrellas -= _LevelPageState.estrellasParaRevelarRespuesta;
+    });
+    Provider.of<StarsProvider>(context, listen: false).setStars(_estrellas); // Update the stars in the provider
+    print('Estrellas después: $_estrellas');
+    
+    }
+    return false;
   }
 }
 
@@ -160,10 +135,93 @@ void checkAnswer() async {
               ),
               const SizedBox(height: 20),
               // Botón "Enviar"
-              ElevatedButton(
-                onPressed: checkAnswer,
-                child: const Text('Enviar'),
-              ),
+             ElevatedButton(
+              onPressed: () {
+                checkAnswer().then((correct) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      if (correct) {
+                        return AlertDialog(
+                          title: const Text('¡Correcto!'),
+                          content: const Text('¡Has acertado!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); 
+                                Navigator.pop(context, {'estrellas': _estrellas, 'nivelCompletado': correctAnswer}); 
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return AlertDialog(
+                          title: const Text('¡Incorrecto!'),
+                          content: const Text('Inténtalo de nuevo'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                  );
+                });
+              },
+              child: const Text('Revisar respuesta'),
+            ),
+              const SizedBox(height: 20),
+                // Botón "Revelar respuesta"
+                ElevatedButton(
+                  onPressed: () {
+                    print('Estrellas: $_estrellas');
+                    print('Estrellas para revelar respuesta: ${_LevelPageState.estrellasParaRevelarRespuesta}');
+                    
+                      if(_estrellas >= _LevelPageState.estrellasParaRevelarRespuesta) {
+                      setState(() {
+                        _estrellas -= _LevelPageState.estrellasParaRevelarRespuesta;
+                        _respuestaRevelada = true; 
+                      });
+                      Provider.of<StarsProvider>(context, listen: false).setStars(_estrellas); // Update the stars in the provider
+
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Respuesta'),
+                            content: Text('La respuesta es ${widget.levelAnswer}'),
+                          );
+                        },
+                      );
+                    } else if (_respuestaRevelada) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            title: Text('Respuesta ya revelada'),
+                            content: Text('Ya has revelado la respuesta para este nivel'),
+                          );
+                        },
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            title: Text('No suficientes estrellas'),
+                            content: Text('No tienes suficientes estrellas para revelar la respuesta'),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: const Text('Revelar respuesta'),
+                ),
             ],
           ),
         ),
@@ -172,7 +230,4 @@ void checkAnswer() async {
   ),
 );
 }
-
 }
-
-
