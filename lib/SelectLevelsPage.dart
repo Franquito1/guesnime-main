@@ -12,7 +12,8 @@ class SelectLevelsPage extends StatefulWidget {
   final String levelAnswer;
   final String usuario;
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
+
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required estrellas});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
@@ -67,9 +68,8 @@ void saveCompletedLevel(String levelAnswer) async {
 
   @override
   Widget build(BuildContext context) {
-    final String levelImage = widget.levelImage;
+    final String levelImage = widget.levelImage; 
     String _usuario = widget.usuario;
- 
 
   return Scaffold(
     body: Container(
@@ -116,7 +116,8 @@ void saveCompletedLevel(String levelAnswer) async {
                     width: 50, // Width of the white box
                     height: 50, // Height of the white box
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                     color:Colors.white,
+
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(

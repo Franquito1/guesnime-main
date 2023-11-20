@@ -5,11 +5,11 @@ import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class LevelPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
+
 
 
   LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario});
@@ -24,8 +24,11 @@ class _LevelPageState extends State<LevelPage>
 {
   late String _usuario;
   late int _estrellas;
+
+
   final TextEditingController _answerController = TextEditingController();
   late String levelImage1 = widget.levelImage;
+
 
 
   Future<void> updateStarsInDatabase() async {
