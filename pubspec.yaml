@@ -85,6 +85,22 @@ flutter:
   - assets/LevelImageKimetsu/level6.png
   - assets/LevelImageKimetsu/level7.png
   - assets/LevelImageKimetsu/level8.png
+  - assets/LevelImageDragon/level1.png
+  - assets/LevelImageDragon/level2.png
+  - assets/LevelImageDragon/level3.png
+  - assets/LevelImageDragon/level4.png
+  - assets/LevelImageDragon/level5.png
+  - assets/LevelImageDragon/level6.png
+  - assets/LevelImageDragon/level7.png
+  - assets/LevelImageDragon/level8.png
+  - assets/LevelImageMetal/level1.png
+  - assets/LevelImageMetal/level2.png
+  - assets/LevelImageMetal/level3.png
+  - assets/LevelImageMetal/level4.png
+  - assets/LevelImageMetal/level5.png
+  - assets/LevelImageMetal/level6.png
+  - assets/LevelImageMetal/level7.png
+  - assets/LevelImageMetal/level8.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

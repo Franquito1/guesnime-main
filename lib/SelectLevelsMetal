@@ -7,47 +7,42 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SelectLevelsKimetsu extends StatefulWidget {
+class SelectLevelsMetal extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
 
 
-  SelectLevelsKimetsu({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
+  SelectLevelsMetal({required this.levelImage, required this.levelAnswer,required this.usuario,required estrellas});
 
   @override
-  _SelectLevelsKimetsu createState() => _SelectLevelsKimetsu();
+  _SelectLevelsMetal createState() => _SelectLevelsMetal();
   
 }
 
-
-
-
-class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
+class _SelectLevelsMetal extends State<SelectLevelsMetal> {
   List<int> levels = [1, 2, 3, 4, 5, 6, 7, 8];
   List<String> levelImageUrls = [
-    'assets/LevelImageKimetsu/level1.png',
-    'assets/LevelImageKimetsu/level2.png',
-    'assets/LevelImageKimetsu/level3.png',
-    'assets/LevelImageKimetsu/level4.png',
-    'assets/LevelImageKimetsu/level5.png',
-    'assets/LevelImageKimetsu/level6.png',
-    'assets/LevelImageKimetsu/level7.png',
-    'assets/LevelImageKimetsu/level8.png',
+    'assets/LevelImageMetal/level1.png',
+    'assets/LevelImageMetal/level2.png',
+    'assets/LevelImageMetal/level3.png',
+    'assets/LevelImageMetal/level4.png',
+    'assets/LevelImageMetal/level5.png',
+    'assets/LevelImageMetal/level6.png',
+    'assets/LevelImageMetal/level7.png',
+    'assets/LevelImageMetal/level8.png',
   ];
   List<String> levelAnswers = [
-    'Tanjiro Kamado',
-    'Nezuko Kamado',
-    'Inosuke Hashibira',
-    'Zenitsu Agatsuma',
-    'Hinatsuru Kamado',
-    'Muzan Kibutsuji',
-    'Akaza Kibutsuji',
-    'Mitsuri Kanroji'
+    'Edward Elric',
+    'Roy Mustang',
+    'Alphonse Elric',
+    'Winry Rockbell',
+    'King Bradley',
+    'Greed FullMetal',
+    'Nina Tucker',
+    'Maes Hughes'
   ];
 
-
-  
   List<String> completedLevels = [];
   
   @override

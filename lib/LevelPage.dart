@@ -91,6 +91,7 @@ class _LevelPageState extends State<LevelPage>
   Widget build(BuildContext context) {
 
   return Scaffold(
+    resizeToAvoidBottomInset: false,
     body: Container(
     decoration: const BoxDecoration(
       color: Color(0xFF394065),

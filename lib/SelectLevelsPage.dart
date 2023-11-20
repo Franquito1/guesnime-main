@@ -33,14 +33,14 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     'assets/LevelImage/level8.png',
   ];
   List<String> levelAnswers = [
-    'Sakura',
-    'Minato',
-    'Jiraiya',
-    'Sasuke',
-    'Sasori',
+    'Sakura Haruno',
+    'Minato Namikaze',
+    'Jiraiya Sensei',
+    'Sasuke Uchiha',
+    'Madara Uchiha',
     'Rock lee',
-    'Itachi',
-    'Gaara'
+    'Itachi Uchiha',
+    'Gaara Sabaku'
   ];
 
   List<String> completedLevels = [];
