@@ -3,6 +3,8 @@ import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/EstrellasProvider.dart';
 import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LevelPage extends StatefulWidget {
   final String levelImage;
@@ -50,56 +52,62 @@ class _LevelPageState extends State<LevelPage>
     super.dispose();  
   }
 
+  void saveCompletedLevel(String levelAnswer) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
+  completedLevels.add(levelAnswer);
+  await prefs.setStringList('completedLevels', completedLevels);
+}
+
 void checkAnswer() async {
   String userAnswer = _answerController.text;
   String correctAnswer = widget.levelAnswer;
   
   if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
     await updateStarsInDatabase();
-
-        setState(() {
+    saveCompletedLevel(correctAnswer);
+    setState(() {
       _estrellas = _estrellas;
     });
 
-
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('¡Correcto!'),
-            content: const Text('¡Has acertado!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context, _estrellas);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Incorrecto'),
-            content: const Text('Inténtalo de nuevo'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('¡Correcto!'),
+          content: const Text('¡Has acertado!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); 
+                Navigator.pop(context, {'estrellas': _estrellas, 'nivelCompletado': correctAnswer}); 
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  } else {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Incorrecto'),
+          content: const Text('Inténtalo de nuevo'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {

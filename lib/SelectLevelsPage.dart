@@ -5,6 +5,7 @@ import 'package:guesnime/LevelPage.dart';
 import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
@@ -34,8 +35,36 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     'Sasuke',
     'Sasori',
   ];
+
+  List<String> completedLevels = [];
   
-  
+  @override
+  void initState() {
+    super.initState();
+    loadCompletedLevels();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    loadCompletedLevels();
+  }
+
+
+void loadCompletedLevels() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  setState(() {
+    completedLevels = prefs.getStringList('completedLevels') ?? [];
+  });
+}
+void saveCompletedLevel(String levelAnswer) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
+  completedLevels.add(levelAnswer);
+  await prefs.setStringList('completedLevels', completedLevels);
+}
+
+
   @override
   Widget build(BuildContext context) {
     final String levelImage = widget.levelImage;
@@ -61,21 +90,25 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
               itemCount: levels.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    if (index < levelImageUrls.length && index < levelAnswers.length) {
-                      Navigator.push(
+                                onTap: () async {
+                    if (index < levelImageUrls.length && index < levelAnswers.length && !completedLevels.contains(levelAnswers[index])){
+                      Map<String, dynamic> result = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context)  {
-              
-                           return LevelPage(
-                            levelImage: levelImageUrls[index],
-                            levelAnswer: levelAnswers[index],
-                             usuario: widget.usuario, 
+                            return LevelPage(
+                              levelImage: levelImageUrls[index],
+                              levelAnswer: levelAnswers[index],
+                              usuario: widget.usuario, 
                             );  
                           },
                         ),
                       );
+                      if (result != null) {
+                        setState(() {
+                          completedLevels.add(result['nivelCompletado']);
+                        });
+                      }
                     }
                   },
                   child: Container(
@@ -87,13 +120,20 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                      child: Text(
+                      child: Row( 
+                        mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                      Text(
                         '${levels[index]}',
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                       if (completedLevels.contains(levelAnswers[index]))
+                         Icon(Icons.check_circle, color: Colors.green),
+                    ],
+                    ),
                     ),
                   ),
                 );
