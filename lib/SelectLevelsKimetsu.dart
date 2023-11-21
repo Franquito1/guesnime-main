@@ -11,9 +11,10 @@ class SelectLevelsKimetsu extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
+  final String anime;
 
 
-  SelectLevelsKimetsu({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
+  SelectLevelsKimetsu({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas,required this.anime});
 
   @override
   _SelectLevelsKimetsu createState() => _SelectLevelsKimetsu();
@@ -105,6 +106,7 @@ void saveCompletedLevel(String levelAnswer) async {
                               levelImage: levelImageUrls[index],
                               levelAnswer: levelAnswers[index],
                               usuario: widget.usuario, 
+                              anime: widget.anime,
                             );  
                           },
                         ),

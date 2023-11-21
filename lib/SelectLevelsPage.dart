@@ -11,9 +11,10 @@ class SelectLevelsPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
+  final String anime;
 
 
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required estrellas});
+  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required estrellas,required this.anime});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
@@ -100,8 +101,10 @@ void saveCompletedLevel(String levelAnswer) async {
                               levelImage: levelImageUrls[index],
                               levelAnswer: levelAnswers[index],
                               usuario: widget.usuario, 
+                              anime: widget.anime,
                             );  
                           },
+
                         ),
                       );
                       if (result != null) {

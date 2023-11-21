@@ -93,9 +93,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     nombre: _usernameController.text,
                     estrellas: 0,
                     nivelesExitososNaruto: 0,
-                    nivelesTotalesNaruto: 5,
+                    nivelesTotalesNaruto: 8,
                     nivelesExitososKimetsu: 0,
-                    nivelesTotalesKimetsu: 5,
+                    nivelesTotalesKimetsu: 8,
+                    nivelesExitososDBZ: 0,
+                    nivelesTotalesDBZ: 8,
+                    nivelesTotalesFMA: 0,
+                    nivelesExitososFMA: 8,
                   );
                   await BaseDeDatos.insertarUsuario(usuario);
 

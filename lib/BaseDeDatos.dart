@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:sqflite/sqflite.dart';
 
 import 'Usuario.dart';
@@ -16,7 +18,11 @@ class BaseDeDatos {
             nivelesExitososNaruto INTEGER,
             nivelesTotalesNaruto INTEGER,
             nivelesExitososKimetsu INTEGER,
-            nivelesTotalesKimetsu INTEGER
+            nivelesTotalesKimetsu INTEGER,
+            nivelesExitososDBZ INTEGER,
+            nivelesTotalesDBZ INTEGER,
+            nivelesExitososFMA INTEGER,
+            nivelesTotalesFMA INTEGER
           )
         ''');
 
@@ -133,6 +139,71 @@ class BaseDeDatos {
       throw Exception('Usuario no encontrado');
     }
   }
+
+  static Future<int> getNivelesExitososDBZ(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesExitososDBZ'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesExitososDBZ'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+  
+  static Future<int> getNivelesTotalesDBZ(String nombreUsuario) async {
+      final db = await getInstance();
+      final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+          columns: ['nivelesTotalesDBZ'],
+          where: 'nombre = ?',
+          whereArgs: [nombreUsuario]);
+
+      if (usuariosMap.isNotEmpty) {
+        return usuariosMap[0]['nivelesTotalesDBZ'] as int;
+      } else {
+        throw Exception('Usuario no encontrado');
+      }
+    }
+
+  static Future<int> getNivelesExitososFMA(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesExitososFMA'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesExitososFMA'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
+  static Future<int> getNivelesTotalesFMA(String nombreUsuario) async {
+    final db = await getInstance();
+    final List<Map<String, dynamic>> usuariosMap = await db.query('usuarios',
+        columns: ['nivelesTotalesFMA'],
+        where: 'nombre = ?',
+        whereArgs: [nombreUsuario]);
+
+    if (usuariosMap.isNotEmpty) {
+      return usuariosMap[0]['nivelesTotalesFMA'] as int;
+    } else {
+      throw Exception('Usuario no encontrado');
+    }
+  }
+
+  
+
+static Stream<int> getNivelesExitososNarutoStream(String usuario, StreamController<int> controller) {
+  getNivelesExitososNaruto(usuario).then((nivelesExitososNaruto) {
+    controller.add(nivelesExitososNaruto);
+  });
+  return controller.stream;
+}
 
 
   

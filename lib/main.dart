@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/EstrellasProvider.dart';
+import 'package:guesnime/NivelesExistososProvider.dart';
 import 'package:guesnime/routes.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => StarsProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => StarsProvider()),
+        ChangeNotifierProvider(create: (context) => NivelesExitososProvider()),
+      ],
       child: const MyApp(),
     ),
   );

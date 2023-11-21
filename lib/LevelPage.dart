@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guesnime/BaseDeDatos.dart';
 import 'package:guesnime/EstrellasProvider.dart';
+import 'package:guesnime/NivelesExistososProvider.dart';
 import 'package:guesnime/UserAppBar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,10 +10,11 @@ class LevelPage extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
+  final String anime;
 
 
 
-  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario});
+  LevelPage({required this.levelImage, required this.levelAnswer, required this.usuario,required this.anime});
   
 
   @override
@@ -28,6 +30,24 @@ class _LevelPageState extends State<LevelPage>
 
   final TextEditingController _answerController = TextEditingController();
   late String levelImage1 = widget.levelImage;
+
+
+Future<void> updateSuccessfulLevelsInDatabase(String usuario, String anime) async {
+  final db = await BaseDeDatos.getInstance();
+  int successfulLevels;
+
+
+  successfulLevels = (await db.rawQuery('SELECT nivelesExitosos${anime} FROM usuarios WHERE nombre = ?', [usuario]))[0]['nivelesExitosos${anime}'] as int;
+  successfulLevels++;
+  await db.rawUpdate(
+    'UPDATE usuarios SET nivelesExitosos${anime} = ? WHERE nombre = ?',
+    [successfulLevels, usuario],
+  );
+  Provider.of<NivelesExitososProvider>(context, listen: false).setNivelesExitosos(anime, successfulLevels);
+  
+}
+
+
 
 
 
@@ -68,6 +88,7 @@ void checkAnswer() async {
   
   if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
     await updateStarsInDatabase();
+    await updateSuccessfulLevelsInDatabase(_usuario, widget.anime); // Añade esta línea
     saveCompletedLevel(correctAnswer);
     setState(() {
       _estrellas = _estrellas;
@@ -116,6 +137,7 @@ void checkAnswer() async {
   Widget build(BuildContext context) {
 
   return Scaffold(
+    resizeToAvoidBottomInset: false,
     body: Container(
     decoration: const BoxDecoration(
       color: Color(0xFF394065),
