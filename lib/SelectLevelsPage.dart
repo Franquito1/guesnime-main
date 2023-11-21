@@ -13,12 +13,15 @@ class SelectLevelsPage extends StatefulWidget {
   final String usuario;
   final String anime;
 
-
-  SelectLevelsPage({required this.levelImage, required this.levelAnswer,required this.usuario,required estrellas,required this.anime});
+  SelectLevelsPage(
+      {required this.levelImage,
+      required this.levelAnswer,
+      required this.usuario,
+      required estrellas,
+      required this.anime});
 
   @override
   _SelectLevelsPage createState() => _SelectLevelsPage();
-  
 }
 
 class _SelectLevelsPage extends State<SelectLevelsPage> {
@@ -45,7 +48,7 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
   ];
 
   List<String> completedLevels = [];
-  
+
   @override
   void initState() {
     super.initState();
@@ -58,105 +61,103 @@ class _SelectLevelsPage extends State<SelectLevelsPage> {
     loadCompletedLevels();
   }
 
+  void loadCompletedLevels() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      completedLevels = prefs.getStringList('completedLevels') ?? [];
+    });
+  }
 
-void loadCompletedLevels() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  setState(() {
-    completedLevels = prefs.getStringList('completedLevels') ?? [];
-  });
-}
-void saveCompletedLevel(String levelAnswer) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
-  completedLevels.add(levelAnswer);
-  await prefs.setStringList('completedLevels', completedLevels);
-}
-
+  void saveCompletedLevel(String levelAnswer) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> completedLevels = prefs.getStringList('completedLevels') ?? [];
+    completedLevels.add(levelAnswer);
+    await prefs.setStringList('completedLevels', completedLevels);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final String levelImage = widget.levelImage; 
+    final String levelImage = widget.levelImage;
     String _usuario = widget.usuario;
 
-  return Scaffold(
-    body: Container(
-    decoration: const BoxDecoration(
-      color: Color(0xFF394065),
-    ),
-    child: Stack(
-      children: [
-        UserAppBar(usuario: _usuario),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 50),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: levels.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                                onTap: () async {
-                    if (index < levelImageUrls.length && index < levelAnswers.length && !completedLevels.contains(levelAnswers[index])){
-                      Map<String, dynamic> result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)  {
-                            return LevelPage(
-                              levelImage: levelImageUrls[index],
-                              levelAnswer: levelAnswers[index],
-                              usuario: widget.usuario, 
-                              anime: widget.anime,
-                            );  
-                          },
-
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFF394065),
+        ),
+        child: Stack(
+          children: [
+            UserAppBar(usuario: _usuario),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: levels.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () async {
+                          if (index < levelImageUrls.length &&
+                              index < levelAnswers.length &&
+                              !completedLevels.contains(levelAnswers[index])) {
+                            Map<String, dynamic> result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LevelPage(
+                                    levelImage: levelImageUrls[index],
+                                    levelAnswer: levelAnswers[index],
+                                    usuario: widget.usuario,
+                                    anime: widget.anime,
+                                  );
+                                },
+                              ),
+                            );
+                            if (result != null) {
+                              setState(() {
+                                completedLevels.add(result['nivelCompletado']);
+                              });
+                            }
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          width: 50, // Width of the white box
+                          height: 50, // Height of the white box
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${levels[index]}',
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                if (completedLevels
+                                    .contains(levelAnswers[index]))
+                                  Icon(Icons.check_circle, color: Colors.green),
+                              ],
+                            ),
+                          ),
                         ),
                       );
-                      if (result != null) {
-                        setState(() {
-                          completedLevels.add(result['nivelCompletado']);
-                        });
-                      }
-                    }
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(16),
-                    width: 50, // Width of the white box
-                    height: 50, // Height of the white box
-                    decoration: BoxDecoration(
-                     color:Colors.white,
-
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Row( 
-                        mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-                      Text(
-                        '${levels[index]}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                       if (completedLevels.contains(levelAnswers[index]))
-                         Icon(Icons.check_circle, color: Colors.green),
-                    ],
-                    ),
-                    ),
+                    },
                   ),
-                );
-               },
-             ),
-            ],
-           ),
-         ),
-        ],
-       ),
-       ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
-
-

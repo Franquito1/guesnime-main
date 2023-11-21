@@ -4,6 +4,8 @@ import 'package:guesnime/EstrellasProvider.dart';
 import 'package:guesnime/NivelesExistososProvider.dart';
 import 'package:guesnime/SelectLevelsPage.dart';
 import 'package:guesnime/SelectLevelsKimetsu.dart' as Kimetsu;
+import 'package:guesnime/SelectLevelsDragon.dart' as DBZ;
+import 'package:guesnime/SelectLevelsMetal.dart' as FMA;
 import 'package:guesnime/Usuario.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,6 +100,10 @@ class _HomePageState extends State<HomePage> {
         .getNivelesExitosos('Naruto');
     int nivelesExitososKimetsu = Provider.of<NivelesExitososProvider>(context)
         .getNivelesExitosos('Kimetsu');
+    int nivelesExitososDBZ =
+        Provider.of<NivelesExitososProvider>(context).getNivelesExitosos('DBZ');
+    int nivelesExitososFMA =
+        Provider.of<NivelesExitososProvider>(context).getNivelesExitosos('FMA');
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -146,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                                 const Text(
                                   'Naruto',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -169,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   '$nivelesExitososNaruto/$_nivelesTotalesNaruto',
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -220,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                                 const Text(
                                   'Kimetsu No Yaiba',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -243,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   '$nivelesExitososKimetsu/$_nivelesTotalesKimetsu',
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -262,14 +268,14 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Kimetsu.SelectLevelsKimetsu(
+                          builder: (context) => DBZ.SelectLevelsDragon(
                             usuario: _usuario,
                             estrellas: Provider.of<StarsProvider>(context,
                                     listen: false)
                                 .stars,
                             levelImage: 'assets/defaul_image.png',
                             levelAnswer: 'Dragon Ball Z',
-                            anime: 'Dragon Ball Z',
+                            anime: 'DBZ',
                           ),
                         ),
                       );
@@ -294,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                                 const Text(
                                   'Dragon Ball Z',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -313,9 +319,9 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                 Text(
-                                  '$_nivelesExitososDBZ/$_nivelesTotalesKimetsu',
+                                  '$nivelesExitososDBZ/$_nivelesTotalesDBZ',
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -334,14 +340,14 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Kimetsu.SelectLevelsKimetsu(
+                          builder: (context) => FMA.SelectLevelsMetal(
                             usuario: _usuario,
                             estrellas: Provider.of<StarsProvider>(context,
                                     listen: false)
                                 .stars,
                             levelImage: 'assets/defaul_image.png',
                             levelAnswer: 'FullMetal Alchemist',
-                            anime: 'FullMetal Alchemist',
+                            anime: 'FMA',
                           ),
                         ),
                       );
@@ -363,7 +369,7 @@ class _HomePageState extends State<HomePage> {
                                 const Text(
                                   'FullMetal Alchemist',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -382,9 +388,9 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                 Text(
-                                  '$_nivelesExitososFMA/$_nivelesTotalesKimetsu',
+                                  '$nivelesExitososFMA/$_nivelesTotalesFMA',
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 62, 59, 59),
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),

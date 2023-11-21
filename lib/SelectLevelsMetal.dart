@@ -7,13 +7,13 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SelectLevelsDragon extends StatefulWidget {
+class SelectLevelsMetal extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
   final String anime;
 
-  SelectLevelsDragon(
+  SelectLevelsMetal(
       {required this.levelImage,
       required this.levelAnswer,
       required this.usuario,
@@ -21,30 +21,30 @@ class SelectLevelsDragon extends StatefulWidget {
       required this.anime});
 
   @override
-  _SelectLevelsDragon createState() => _SelectLevelsDragon();
+  _SelectLevelsMetal createState() => _SelectLevelsMetal();
 }
 
-class _SelectLevelsDragon extends State<SelectLevelsDragon> {
+class _SelectLevelsMetal extends State<SelectLevelsMetal> {
   List<int> levels = [1, 2, 3, 4, 5, 6, 7, 8];
   List<String> levelImageUrls = [
-    'assets/LevelImageDragon/level1.png',
-    'assets/LevelImageDragon/level2.png',
-    'assets/LevelImageDragon/level3.png',
-    'assets/LevelImageDragon/level4.png',
-    'assets/LevelImageDragon/level5.png',
-    'assets/LevelImageDragon/level6.png',
-    'assets/LevelImageDragon/level7.png',
-    'assets/LevelImageDragon/level8.png',
+    'assets/LevelImageMetal/level1.png',
+    'assets/LevelImageMetal/level2.png',
+    'assets/LevelImageMetal/level3.png',
+    'assets/LevelImageMetal/level4.png',
+    'assets/LevelImageMetal/level5.png',
+    'assets/LevelImageMetal/level6.png',
+    'assets/LevelImageMetal/level7.png',
+    'assets/LevelImageMetal/level8.png',
   ];
   List<String> levelAnswers = [
-    'Goku',
-    'Vegeta',
-    'Gohan',
-    'Broly',
-    'Roshi',
-    'trunks',
-    'freezer',
-    'dende'
+    'Edward Elric',
+    'Roy Mustang',
+    'Alphonse Elric',
+    'Winry Rockbell',
+    'King Bradley',
+    'Greed FullMetal',
+    'Nina Tucker',
+    'Maes Hughes'
   ];
 
   List<String> completedLevels = [];
@@ -108,11 +108,10 @@ class _SelectLevelsDragon extends State<SelectLevelsDragon> {
                               MaterialPageRoute(
                                 builder: (context) {
                                   return LevelPage(
-                                    levelImage: levelImageUrls[index],
-                                    levelAnswer: levelAnswers[index],
-                                    usuario: widget.usuario,
-                                    anime: 'DBZ',
-                                  );
+                                      levelImage: levelImageUrls[index],
+                                      levelAnswer: levelAnswers[index],
+                                      usuario: widget.usuario,
+                                      anime: 'FMA');
                                 },
                               ),
                             );

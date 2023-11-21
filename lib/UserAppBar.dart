@@ -41,7 +41,7 @@ class UserAppBar extends StatelessWidget {
                       Text(
                         ' $usuario',
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 62, 59, 59),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -56,7 +56,7 @@ class UserAppBar extends StatelessWidget {
                       Text(
                         '${Provider.of<StarsProvider>(context).stars}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 62, 59, 59),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),

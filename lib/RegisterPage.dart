@@ -5,7 +5,6 @@ import 'package:guesnime/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animate_do/animate_do.dart';
 
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -33,12 +32,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-     _context = context;
+    _context = context;
     _checkIfUserRegistered();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color:  Color(0xFF394065),
+          color: Color(0xFF394065),
         ),
         child: Center(
           child: Column(
@@ -98,18 +97,19 @@ class _RegisterPageState extends State<RegisterPage> {
                     nivelesTotalesKimetsu: 8,
                     nivelesExitososDBZ: 0,
                     nivelesTotalesDBZ: 8,
-                    nivelesTotalesFMA: 0,
-                    nivelesExitososFMA: 8,
+                    nivelesTotalesFMA: 8,
+                    nivelesExitososFMA: 0,
                   );
                   await BaseDeDatos.insertarUsuario(usuario);
 
                   // Obtener la lista de usuarios de la base de datos
                   //List<Usuario> usuarios = await BaseDeDatos.getUsuarios();
 
-                    // Guardar el nombre de usuario en SharedPreferences
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  // Guardar el nombre de usuario en SharedPreferences
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
                   await prefs.setString('usuario', usuario.nombre);
-                  
+
                   // Imprimir un mensaje de depuración en la consola
                   //print('Usuario insertado en la base de datos: $usuario');
 
