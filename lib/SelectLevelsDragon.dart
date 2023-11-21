@@ -7,44 +7,43 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SelectLevelsKimetsu extends StatefulWidget {
+class SelectLevelsDragon extends StatefulWidget {
   final String levelImage;
   final String levelAnswer;
   final String usuario;
-  final String anime;
 
 
-  SelectLevelsKimetsu({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas,required this.anime});
+  SelectLevelsDragon({required this.levelImage, required this.levelAnswer,required this.usuario, required estrellas});
 
   @override
-  _SelectLevelsKimetsu createState() => _SelectLevelsKimetsu();
+  _SelectLevelsDragon createState() => _SelectLevelsDragon();
   
 }
 
 
 
 
-class _SelectLevelsKimetsu extends State<SelectLevelsKimetsu> {
+class _SelectLevelsDragon extends State<SelectLevelsDragon> {
   List<int> levels = [1, 2, 3, 4, 5, 6, 7, 8];
   List<String> levelImageUrls = [
-    'assets/LevelImageKimetsu/level1.png',
-    'assets/LevelImageKimetsu/level2.png',
-    'assets/LevelImageKimetsu/level3.png',
-    'assets/LevelImageKimetsu/level4.png',
-    'assets/LevelImageKimetsu/level5.png',
-    'assets/LevelImageKimetsu/level6.png',
-    'assets/LevelImageKimetsu/level7.png',
-    'assets/LevelImageKimetsu/level8.png',
+    'assets/LevelImageDragon/level1.png',
+    'assets/LevelImageDragon/level2.png',
+    'assets/LevelImageDragon/level3.png',
+    'assets/LevelImageDragon/level4.png',
+    'assets/LevelImageDragon/level5.png',
+    'assets/LevelImageDragon/level6.png',
+    'assets/LevelImageDragon/level7.png',
+    'assets/LevelImageDragon/level8.png',
   ];
   List<String> levelAnswers = [
-    'Tanjiro Kamado',
-    'Nezuko Kamado',
-    'Inosuke Hashibira',
-    'Zenitsu Agatsuma',
-    'Hinatsuru Kamado',
-    'Muzan Kibutsuji',
-    'Akaza Kibutsuji',
-    'Mitsuri Kanroji'
+    'Goku',
+    'Vegeta',
+    'Gohan',
+    'Broly',
+    'Roshi',
+    'trunks',
+    'freezer',
+    'dende'
   ];
 
 
@@ -112,7 +111,6 @@ void saveCompletedLevel(String levelAnswer) async {
                               levelImage: levelImageUrls[index],
                               levelAnswer: levelAnswers[index],
                               usuario: widget.usuario, 
-                              anime: widget.anime,
                             );  
                           },
                         ),
